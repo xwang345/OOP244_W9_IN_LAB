@@ -18,6 +18,7 @@ namespace sict{
     // 
     String::String(){
        // initialize the string to ""
+        m_pString[0] = '\0';
     }
 
 
@@ -32,6 +33,7 @@ namespace sict{
     //
     // 
     String::String(const char* pSource){
+        strcpy(m_pString, pSource);
         
     }
 
@@ -46,7 +48,7 @@ namespace sict{
     // 
     String::String(const String& other) 
     {
-
+        strcpy(m_pString, other.m_pString);
         
     }
 
@@ -63,7 +65,8 @@ namespace sict{
     //     
     String& String::operator=(const String& other)
     {
-    
+        strcpy(m_pString, other.m_pString);
+        return *this;
     }
 
     //////////////////////////////////////////////////////
@@ -89,7 +92,7 @@ namespace sict{
     // 
     int String::length() const
     {
-       
+        return strlen(m_pString);
     }
 
     //////////////////////////////////////////////////////
@@ -99,9 +102,9 @@ namespace sict{
     // convert the String to a char*
     // 
     // 
-    String::operator const char *() const
+    String::operator const char*() const
     {
-       
+        return m_pString;
     }
 
     //////////////////////////////////////////////////////
@@ -114,7 +117,7 @@ namespace sict{
     // length is 0.
     bool String::empty() const
     {
-      
+        return (String::length() == 0);
     }
 
     //////////////////////////////////////////////////////
@@ -126,7 +129,7 @@ namespace sict{
     //         
     String::operator bool() const
     {
-       
+        return (String::length() != 0);
     }
      
      
@@ -141,7 +144,7 @@ namespace sict{
     //           
     bool String::operator==(const String& s2) const
     {
-     
+        return (strcmp(s2.m_pString, m_pString) == 0);
     }
         
         
@@ -157,7 +160,8 @@ namespace sict{
     //         
     String& String::operator+=(const String& s2)
     {
-            
+        *this = (*this +s2);
+        return *this;
     }
     
     //////////////////////////////////////////////////////
@@ -171,8 +175,10 @@ namespace sict{
     //     
     String String::operator+(const String& s2) const
     {
-       
-        
+        char temp[100];
+        strcpy(temp, m_pString);
+        strcat(temp, s2.m_pString);
+        return temp;
     }
       
     //////////////////////////////////////////////////////
@@ -184,7 +190,13 @@ namespace sict{
     //        
     String& String::operator+= (char c)
     {
-      
+        char temp [100];
+        temp[0]=c;
+        temp[1]='\0';
+        strcat(m_pString,temp);
+
+
+        return *this;
     }
 
 
@@ -202,7 +214,8 @@ namespace sict{
     //     
     std::ostream& operator<<(std::ostream& ostream, const String &s)
     {
-       
+        ostream << (const char *) s;
+        return ostream;
     }
 
 

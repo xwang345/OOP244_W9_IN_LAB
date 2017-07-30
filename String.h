@@ -39,7 +39,7 @@ namespace sict
         // adds two strings and returns it
         String      operator+   (const String& s2) const;
         // returns a pointer to the internal string
-        operator    const char* ()                  const;
+        operator const char* () const;
         // operator wrapper for empty()
         operator    bool        ()                  const;
         // true if string *this and s2 are equal
